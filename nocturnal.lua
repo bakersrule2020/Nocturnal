@@ -18,7 +18,7 @@ nocturnalver = "v0.23 Alpha"
     
 
 -- // we are legit just skidding venyx lol
-local Venyx = loadstring(game:HttpGet("https://raw.githubusercontent.com/bakersrule2020/Nocturnal/main/uilib.lua"))()
+local Venyx = loadstring(game:HttpGet("https://raw.githubusercontent.com/bakersrule2020/Nocturnal/main/uilib.lua?token=GHSAT0AAAAAABWCDBPUYRGG3NLKIBWTOOTYYWQZMIA"))()
 local UI = Venyx.new({
     title = "Nocturnal 0.23"
 })
@@ -80,7 +80,7 @@ SectionA:addButton({
     end
 })
 
-if game.Players.LocalPlayer.Name == "bakersrule2020"  then
+if game.Players.LocalPlayer.Name == "bakersrule2020", "teddythedev"  then
      local Admin = UI:addPage({
          title = "Admin",
          icon = 10049705480
