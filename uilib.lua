@@ -1,3 +1,8 @@
+if nocturnalver == 0.23 then
+	passed = true
+else
+	passed = false
+end
 -- init
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse()
