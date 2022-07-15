@@ -70,13 +70,15 @@ local SectionB = Test:addSection({
 -- // Section A UI Elements
 
 SectionA:addButton({
-    title = "Event Logger (UNFINISHED)",
+    title = "Event Logger",
     callback = function()
+            
         game.StarterGui:SetCore("SendNotification",{
             Title = "Nocturnal",
-            Text = "We Ran Into An Issue With That Module. Maybe It Doesn't Exist?",
+            Text = "All Events Will Now Be Logged.",
             Icon = 10049705480;
         })
+            remotelog()
     end
 })
 
@@ -133,15 +135,49 @@ if (nocturnalver == "v0.23 Alpha") then
     game.StarterGui:SetCore("SendNotification",{
         Title = "Nocturnal",
         Text = "Good News - This Isn't Skidded Nocturnal!",
-        Icon = "rbxassetid://10049705480";
+        Icon = 10049705480;
     })
     else
     game.StarterGui:SetCore("SendNotification",{
         Title = "Nocturnal",
         Text = "bruh why did you try to skid us just wait for the source to be released lol",
-        Icon = "rbxassetid://10049705480";
+        Icon = 10049705480;
     wait(1);
     print("Please Don't Skid Nocturnal. I've Worked So Hard And It's People Like You That Make It Harder To Make Scripts. If You Wanna Use My Code, Contact Me On Discord: Torn The Protogen#8769");
     game.Players.LocalPlayer:Kick("Kicked By Nocturnal Creator - Check Console For Details.");
     })
 end
+
+-- //Functions
+
+function remotelog()
+    local mt = getrawmetatable(game)
+local namecall = mt.__namecall
+
+-- sets the read only to false, allowing for hooking and editing of metatable stuff
+setreadonly(mt, false)
+
+-- kool hacker man synapse functions
+mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    
+    -- checks if called remote is a remote event
+    if tostring(method) == "FireServer" then
+        -- letting you know its been fired
+        print("\n [Nocturnal] Remote Event has been fired!" .. "\n [Nocturnal] Event Name: " .. tostring(self))
+    end
+    
+    -- returns namecall to make the remote event code still work
+    return namecall(self, ...)
+end)
+
+-- sets the read only to true
+setreadonly(mt, true)
+end
+
+function notify(title, text, icon)
+     game.StarterGui:SetCore("SendNotification",{
+        Title = title,
+        Text = text,
+        Icon = icon;
+    })
